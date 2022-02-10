@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 
+import django_heroku
+
 from pathlib import Path
 
 from django.urls.conf import path
@@ -152,3 +154,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
