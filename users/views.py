@@ -3,6 +3,7 @@ from django.views.generic import CreateView
 from django.contrib.auth import authenticate, login
 
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LogoutView
 
 from django.contrib.auth.forms import UserCreationForm
 
@@ -31,3 +32,7 @@ class SignUpView(CreateView):
 class CustomLoginView(LoginView):
     
     template_name = 'users/login.html'
+
+class CustomLogoutView(LogoutView):
+    
+    template_name = 'users/logout.html'
