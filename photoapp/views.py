@@ -12,6 +12,10 @@ from django.urls import reverse_lazy
 
 from .models import Photo
 
+def image(request):
+    image_file = request.FILES['image_file'].file.read()
+    Photo.objects.create(image=image_file)
+
 class PhotoListView(ListView):
     
     model = Photo     
@@ -93,3 +97,4 @@ class PhotoDeleteView(UserIsSubmitter, DeleteView):
     model = Photo
 
     success_url = reverse_lazy('photo:list')
+    
