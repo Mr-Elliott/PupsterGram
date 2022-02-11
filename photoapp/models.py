@@ -14,7 +14,7 @@ class Photo(models.Model):
 
     created = models.DateTimeField(auto_now_add=True)
 
-    image = models.ImageField(upload_to='photos/')
+    image = models.BinaryField(blank=True)
 
     submitter = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
