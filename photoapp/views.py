@@ -12,9 +12,7 @@ from django.urls import reverse_lazy
 
 from .models import Photo
 
-def image(request):
-    image_file = request.FILES['image_file'].file.read()
-    Photo.objects.create(image=image_file)
+import base64
 
 class PhotoListView(ListView):
     
@@ -52,20 +50,21 @@ class PhotoDetailView(DetailView):
 
 
 class PhotoCreateView(LoginRequiredMixin, CreateView):
-
-    model = Photo
-    
+    model  = Photo
     fields = ['title', 'description', 'image', 'tags']
-
     template_name = 'photoapp/create.html'
     
     success_url = reverse_lazy('photo:list')
-
+    
     def form_valid(self, form):
-
+        
+        form.instance.image_binary = base64.b64encode(form.cleaned_data['image'].file).decode('utf-8') 
+        print(f"Binary Image Len is {len(form.instance.image_binary)}")
         form.instance.submitter = self.request.user
         
         return super().form_valid(form)
+    
+    
 
 class UserIsSubmitter(UserPassesTestMixin):
 
